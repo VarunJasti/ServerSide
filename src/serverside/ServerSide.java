@@ -23,9 +23,7 @@ public class ServerSide {
                 String input = in.readLine();
                 out.println(input);
             }
-        } catch (Exception e) {
-            
-        }
+        } catch (Exception e) {}
     }
     
 }
