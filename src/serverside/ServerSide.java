@@ -1,14 +1,17 @@
 package serverside;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ServerSide {
     
-    final static int PORT = 4444;
+    private final static int PORT = 4444;
+    private static ArrayList<Socket> clients = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -21,7 +24,9 @@ public class ServerSide {
                 String input = in.readLine();
                 out.println(input);
             }
-        } catch (Exception e) {}
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 }
