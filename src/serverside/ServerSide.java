@@ -7,15 +7,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerSide {
+    
+    final static int port = 4444;
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            return;
-        }
-        int port = Integer.parseInt(args[0]);
         try {
             ServerSocket server = new ServerSocket(port);
-            System.out.println("Server Running on" + port);
+            System.out.println("Server Running on " + port);
             while (true) {
                 Socket client = server.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
