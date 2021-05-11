@@ -8,12 +8,12 @@ import java.net.Socket;
 
 public class ServerSide {
     
-    final static int port = 4444;
+    final static int PORT = 4444;
 
     public static void main(String[] args) {
         try {
-            ServerSocket server = new ServerSocket(port);
-            System.out.println("Server Running on " + port);
+            ServerSocket server = new ServerSocket(PORT);
+            System.out.println("Server Running on " + PORT);
             while (true) {
                 Socket client = server.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
