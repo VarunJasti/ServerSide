@@ -12,13 +12,22 @@ import java.util.ArrayList;
  * @author andre
  */
 public class Deck {
+    private final static int nCardsInDeck = 52;
     private ArrayList<Card> deckOfCards= new ArrayList<Card>();
     
     public Deck(){
-        //deckOfCards = new Card[52];
+        makeDeck();
     }
-    public ArrayList deal(int nCards){
-        
+//    public ArrayList deal(int nCards){
+//        
+//    }
+    
+    public void makeDeck(){
+        for (int i = 1; i <= 13; i++) {
+            for (int j = 0; j < 4; j++) {
+                deckOfCards.add(new Card(i,j));
+            }
+        }
     }
     
     
