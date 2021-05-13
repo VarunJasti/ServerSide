@@ -10,7 +10,7 @@ package serverside;
  * @author andre
  */
 public class Card {
-    private int suit;//1 = Club 2 = Diamond 3 = Heart 4 = Spades
+    private int suit;//0 = Club 1 = Diamond 2 = Heart 3 = Spade
     private int cMarking;
     
     public Card(int suit, int cMarking){
