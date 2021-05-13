@@ -19,11 +19,13 @@ public class ServerSide {
             System.out.println("Server Running on " + PORT);
             while (true) {
                 Socket client = server.accept();
+                System.out.println("New Connection");
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                 String name = in.readLine().split(",")[1];
+                System.out.println(name);
                 clients.add(new User(client, name));
-                out.print("connected");
+                out.println("connected");
 //                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 //                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 //                String input = in.readLine();
