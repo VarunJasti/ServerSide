@@ -23,7 +23,6 @@ public class Deck {
 //    }
     
     public void makeDeck(){
-        
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
                 deckOfCards.add(new Card(i,j));
