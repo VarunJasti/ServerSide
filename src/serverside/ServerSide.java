@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ServerSide {
     
     private final static int PORT = 4444;
-    private static ArrayList<Socket> clients = new ArrayList<>();
+    private static ArrayList<User> clients = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -21,8 +21,13 @@ public class ServerSide {
                 Socket client = server.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                String input = in.readLine();
-                out.println(input);
+                String name = in.readLine().split(",")[1];
+                clients.add(new User(client, name));
+                out.print("connected");
+//                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+//                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+//                String input = in.readLine();
+//                out.println(input);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
