@@ -10,12 +10,12 @@ package serverside;
  * @author andre
  */
 public class Card {
-    private int suit;//0 = Clubs 1 = Diamonds 2 = Hearts 3 = Spades
     private int cMarking;
+    private int suit;//0 = Clubs 1 = Diamonds 2 = Hearts 3 = Spades
     
-    public Card(int suit, int cMarking){
-        this.suit = suit;
+    public Card(int cMarking, int suit){
         this.cMarking = cMarking;
+        this.suit = suit;
     }
     
     public String toString(){
