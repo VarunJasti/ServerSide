@@ -26,10 +26,15 @@ public class ServerSide {
                 System.out.println(name);
                 clients.add(new User(client, name));
                 out.println("connected");
-//                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-//                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-//                String input = in.readLine();
-//                out.println(input);
+                String roster = "";
+                for (int i = 0; i < clients.size(); i++) {
+                    if (i == 0) {
+                        roster += clients.get(i).getUser();
+                    } else {
+                        roster += clients.get(i).getUser() + "\n";
+                    }
+                }
+                out.println(roster);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
