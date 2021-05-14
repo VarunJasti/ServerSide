@@ -32,6 +32,16 @@ public class User {
             System.out.println(e.getMessage());
         }
     }
+    
+    public void listen() {
+        try {
+            while (true) {
+                String input = in.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public Socket getSocket() {
         return socket;
