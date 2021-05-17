@@ -32,38 +32,48 @@ public class User {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void listen() {
-        try {
-            while (true) {
-                String input = in.readLine();
+
+    class Listen extends Thread {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    String input = in.readLine();
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
     }
 
     public Socket getSocket() {
         return socket;
     }
+
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
+
     public void setIn(BufferedReader in) {
         this.in = in;
     }
+
     public void setOut(PrintWriter out) {
         this.out = out;
     }
+
     public void setUser(String user) {
         this.user = user;
     }
+
     public BufferedReader getIn() {
         return in;
     }
+
     public PrintWriter getOut() {
         return out;
     }
+
     public String getUser() {
         return user;
     }
