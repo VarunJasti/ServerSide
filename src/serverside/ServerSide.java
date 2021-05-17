@@ -31,7 +31,7 @@ public class ServerSide {
                     if (i == 0) {
                         roster += clients.get(i).getUser();
                     } else {
-                        roster += clients.get(i).getUser() + "\n";
+                        roster += "," + clients.get(i).getUser();
                     }
                 }
                 out.println(roster);
