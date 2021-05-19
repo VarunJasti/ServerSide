@@ -31,6 +31,8 @@ public class User {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        Listen listen = new Listen();
+        listen.start();
     }
 
     class Listen extends Thread {
@@ -42,8 +44,15 @@ public class User {
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
+                if (e.getMessage().equals("Connection reset")) {
+                    disconnect();
+                }
             }
         }
+    }
+    
+    private void disconnect() {
+        if (ServerSide.getClients().remove(this)) System.out.println(user + " disconnected");
     }
 
     public Socket getSocket() {

@@ -41,4 +41,8 @@ public class ServerSide {
         }
     }
     
+    public static ArrayList<User> getClients() {
+        return clients;
+    }
+    
 }
