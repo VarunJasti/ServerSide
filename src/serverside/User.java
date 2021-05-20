@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  *
@@ -20,21 +21,30 @@ public class User {
     private BufferedReader in;
     private PrintWriter out;
     private String user;
+    private Listen listen;
 
     public User(Socket socket, BufferedReader in, PrintWriter out, String user) {
         this.socket = socket;
         this.in = in;
         this.out = out;
         this.user = user;
-        Listen listen = new Listen();
+        listen = new Listen();
         listen.start();
     }
 
     class Listen extends Thread {
+        
+        private final AtomicBoolean running = new AtomicBoolean(false);
+        
+        public void stop1() {
+            running.set(false);
+        }
+        
         @Override
         public void run() {
+            running.set(true);
             try {
-                while (true) {
+                while (running.get()) {
                     String input = in.readLine();
                     if (input.equals("quit")) {
                         disconnect();
@@ -55,6 +65,7 @@ public class User {
             for (User client : ServerSide.getClients()) {
                 client.getOut().println("quit," + user);
             }
+            listen.stop1();
         }
     }
 
