@@ -36,8 +36,8 @@ public class ServerSide {
                     }
                 }
                 out.println(roster);
-                for (int i = 0; i < clients.size(); i++) {
-                    if (clients.indexOf(u) != i) clients.get(i).getOut().println("newuser," + name);
+                for (int i = 0; i < clients.size() - 1; i++) {
+                    clients.get(i).getOut().println("newuser," + name);
                 }
             }
         } catch (IOException e) {
