@@ -22,15 +22,17 @@ public class User {
     private PrintWriter out;
     private String user;
 
-    public User(Socket socket, String user) {
+    public User(Socket socket, BufferedReader in, PrintWriter out, String user) {
         this.socket = socket;
+        this.in = in;
+        this.out = out;
         this.user = user;
-        try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//            out = new PrintWriter(socket.getOutputStream(), true);
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
         Listen listen = new Listen();
         listen.start();
     }
@@ -52,7 +54,9 @@ public class User {
     }
     
     private void disconnect() {
-        if (ServerSide.getClients().remove(this)) System.out.println(user + " disconnected");
+        if (ServerSide.getClients().remove(this)){
+            System.out.println(user + " disconnected");
+        }
     }
 
     public Socket getSocket() {

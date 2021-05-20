@@ -24,7 +24,8 @@ public class ServerSide {
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                 String name = in.readLine().split(",")[1];
                 System.out.println(name);
-                clients.add(new User(client, name));
+                User u = new User(client, in, out, name);
+                clients.add(u);
                 out.println("connected");
                 String roster = "";
                 for (int i = 0; i < clients.size(); i++) {
@@ -35,6 +36,9 @@ public class ServerSide {
                     }
                 }
                 out.println(roster);
+                for (int i = 0; i < clients.size(); i++) {
+                    if (clients.indexOf(u) != i) clients.get(i).getOut().println("newuser," + name);
+                }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
