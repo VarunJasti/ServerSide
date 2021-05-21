@@ -32,6 +32,8 @@ public class ServerSide {
                 }
                 if (b) {
                     out.println("nametaken");
+                } else if (clients.size() >= 10) {
+                    out.println("lobbyfull");
                 } else {
                     clients.add(new User(client, in, out, name));
                     out.println("connected");
