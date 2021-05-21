@@ -38,7 +38,10 @@ public class User {
             try {
                 String input = in.readLine();
                 if (input.equals("quit")) {
+                    System.out.println(Thread.currentThread().getState());
                     disconnect();
+                } else if (input.equals("start")) {
+                    startGame();
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -47,6 +50,13 @@ public class User {
                 }
             }
         }
+    }
+    
+    private void startGame(){
+        for (User client : ServerSide.getClients()) {
+            client.getOut().println("start");
+        }
+        System.out.println("Game Started");
     }
 
     private void disconnect() {
