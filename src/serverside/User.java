@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  *
@@ -33,15 +34,27 @@ public class User {
 
     class Listen extends Thread {
 
+        private final AtomicBoolean running = new AtomicBoolean(false);
+
+        public void stop1() {
+            running.set(false);
+        }
+
         @Override
         public void run() {
+            running.set(true);
             try {
-                String input = in.readLine();
-                if (input.equals("quit")) {
-                    System.out.println(Thread.currentThread().getState());
-                    disconnect();
-                } else if (input.equals("start")) {
-                    startGame();
+                while (running.get()) {
+                    String input = in.readLine();
+                    if (input.equals("quit")) {
+                        disconnect();
+                    } else if (input.equals("start")) {
+                        if (ServerSide.getClients().size() <= 1) {
+                            out.println("fewplayers");
+                        } else {
+                            startGame();
+                        }
+                    }
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -51,8 +64,8 @@ public class User {
             }
         }
     }
-    
-    private void startGame(){
+
+    private void startGame() {
         for (User client : ServerSide.getClients()) {
             client.getOut().println("start");
         }
@@ -65,6 +78,7 @@ public class User {
             for (User client : ServerSide.getClients()) {
                 client.getOut().println("quit," + user);
             }
+            listen.stop1();
         }
     }
 
