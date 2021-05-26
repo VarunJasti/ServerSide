@@ -69,6 +69,7 @@ public class User {
         for (User client : ServerSide.getClients()) {
             client.getOut().println("start");
         }
+        ServerSide.setPlaying(true);
         System.out.println("Game Started");
     }
 

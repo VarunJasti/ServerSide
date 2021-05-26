@@ -12,6 +12,7 @@ public class ServerSide {
 
     private final static int PORT = 4444;
     private static ArrayList<User> clients = new ArrayList<>();
+    private static boolean playing = false;
 
     public static void main(String[] args) {
         try {
@@ -34,7 +35,9 @@ public class ServerSide {
                     out.println("nametaken");
                 } else if (clients.size() >= 10) {
                     out.println("lobbyfull");
-                } else {
+                } else if (playing) {
+                    out.println("playing");
+                }else {
                     clients.add(new User(client, in, out, name));
                     out.println("connected");
                     String roster = "";
@@ -54,6 +57,10 @@ public class ServerSide {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public static void setPlaying(boolean play) {
+        playing = play;
     }
 
     public static ArrayList<User> getClients() {
