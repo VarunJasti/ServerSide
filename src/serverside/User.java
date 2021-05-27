@@ -24,7 +24,7 @@ public class User {
     private String user;
     private Listen listen;
     private ArrayList<Card> hand = new ArrayList<Card>();
-    private int bet;
+    private double bet;
     
     public void sendHandToClient() {
         String s = "hand|";
@@ -38,7 +38,7 @@ public class User {
         this.hand = hand;
     }
 
-    public void setBet(int bet) {
+    public void setBet(double bet) {
         this.bet = bet;
     }
 
@@ -46,7 +46,7 @@ public class User {
         return hand;
     }
 
-    public int getBet() {
+    public double getBet() {
         return bet;
     }
 

@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServerSide {
 
@@ -65,7 +67,26 @@ public class ServerSide {
             u.setHand(d.deal(2));
             u.sendHandToClient();
         }
-        
+        double bet = 0;
+        for (User u : clients) {
+            u.getOut().printf("bet,%.2f%n", bet);
+            try {
+                String input = u.getIn().readLine();
+                System.out.println(input);
+                if (input.startsWith("bet")) {
+                    bet = Double.parseDouble(input.split(",")[1]);
+                    u.setBet(bet);
+                    for (User c : clients) {
+                        c.getOut().printf("userbet," + u.getUser() + ",%.2f%n", bet);
+                    }
+                } else if (input.equals("fold")) {
+                    
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                //Something for user disconnecting
+            }
+        }
     }
     
     public static void setPlaying(boolean play) {
