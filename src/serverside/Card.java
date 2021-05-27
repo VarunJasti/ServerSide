@@ -18,6 +18,10 @@ public class Card {
         this.suit = suit;
     }
     
+    public String toStringInt() {
+        return cMarking + "," + suit;
+    }
+    
     public String toString(){
         String s ="";
         if (cMarking ==1) {

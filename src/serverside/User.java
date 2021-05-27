@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -22,6 +23,32 @@ public class User {
     private PrintWriter out;
     private String user;
     private Listen listen;
+    private ArrayList<Card> hand = new ArrayList<Card>();
+    private int bet;
+    
+    public void sendHandToClient() {
+        String s = "hand|";
+        for (Card c : hand) {
+            s += c.toStringInt() + "|";
+        }
+        out.println(s);
+    }
+
+    public void setHand(ArrayList<Card> hand) {
+        this.hand = hand;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+    public int getBet() {
+        return bet;
+    }
 
     public User(Socket socket, BufferedReader in, PrintWriter out, String user) {
         this.socket = socket;

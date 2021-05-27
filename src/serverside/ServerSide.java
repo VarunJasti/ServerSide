@@ -60,6 +60,11 @@ public class ServerSide {
     }
     
     public static void playPoker() {
+        Deck d = new Deck();
+        for (User u : clients) {
+            u.setHand(d.deal(2));
+            u.sendHandToClient();
+        }
         
     }
     
