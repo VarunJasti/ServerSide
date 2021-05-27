@@ -47,7 +47,6 @@ public class Card {
         }else if(cMarking ==13){
             s+="King";
         }
-        
         s +=" of ";
         if (suit == 0) {
             s+="Clubs";

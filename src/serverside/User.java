@@ -71,6 +71,7 @@ public class User {
         }
         ServerSide.setPlaying(true);
         System.out.println("Game Started");
+        ServerSide.playPoker();
     }
 
     private void disconnect() {

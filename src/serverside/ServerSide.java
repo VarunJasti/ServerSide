@@ -59,6 +59,10 @@ public class ServerSide {
         }
     }
     
+    public static void playPoker() {
+        
+    }
+    
     public static void setPlaying(boolean play) {
         playing = play;
     }
