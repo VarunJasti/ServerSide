@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serverside;
 
-import java.util.ArrayList;
+public class Hand implements Comparable{
+    
+    private Card[] cards = new Card[2];
+    
+    public Hand(Card[] cards){
+        this.cards = cards;
+    }
 
-/**
- *
- * @author andre
- */
-public class Hand {
-    private ArrayList<Card> handOfCards= new ArrayList<Card>();
-    public Hand(){
-        
+    public Card[] getCards() {
+        return cards;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void addCard(Card card){
-        handOfCards.add(card);
-    }
 }

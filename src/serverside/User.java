@@ -7,6 +7,7 @@ package serverside;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -23,8 +24,17 @@ public class User {
     private PrintWriter out;
     private String user;
     private Listen listen;
-    private ArrayList<Card> hand = new ArrayList<Card>();
+    private ArrayList<Card> hand = new ArrayList<>();
     private double bet;
+    private boolean fold;
+
+    public void setFold(boolean fold) {
+        this.fold = fold;
+    }
+
+    public boolean isFold() {
+        return fold;
+    }
     
     public void sendHandToClient() {
         String s = "hand|";
@@ -73,6 +83,7 @@ public class User {
             try {
                 while (running.get()) {
                     String input = in.readLine();
+                    System.out.println("user " + input);
                     if (input.equals("quit")) {
                         disconnect();
                     } else if (input.equals("start")) {
@@ -81,6 +92,8 @@ public class User {
                         } else {
                             startGame();
                         }
+                    } else if (input.equals("startgame")) {
+                        stop1();
                     }
                 }
             } catch (IOException e) {
@@ -96,6 +109,7 @@ public class User {
         for (User client : ServerSide.getClients()) {
             client.getOut().println("start");
         }
+        listen.stop1();
         ServerSide.setPlaying(true);
         System.out.println("Game Started");
         ServerSide.playPoker();
