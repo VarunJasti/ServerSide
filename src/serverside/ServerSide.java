@@ -86,23 +86,29 @@ public class ServerSide {
         for (User u : clients) {
             u.getOut().println("2community|" + community.get(4).toStringInt() + "|");
         }
-        ArrayList<Hand> hands = combinations(community, clients.get(0).getHand());
-        System.out.println("");
-        for (Hand hand : hands) {
-            System.out.println(Arrays.toString(hand.getCards()));
+        for (User u : clients) {
+            for (int i = 0; i < clients.size(); i++) {
+                clients.get(i).getOut().println("usercard." + u.getUser() + ".|" + u.getHand().get(0).toStringInt() + "|" + u.getHand().get(1).toStringInt() + "|");
+            }
         }
+//        ArrayList<Hand> hands = new ArrayList<>();
+//        combinations(community, clients.get(0).getHand(), hands);
+//        System.out.println("");
+//        for (Hand hand : hands) {
+//            System.out.println(Arrays.toString(hand.getCards()));
+//        }
     }
 
-    public static ArrayList<Hand> combinations(ArrayList<Card> community, ArrayList<Card> hand) {
+    public static void combinations(ArrayList<Card> community, ArrayList<Card> hand, ArrayList<Hand> results) {
         community.addAll(hand);
         Card[] card = new Card[7];
         for (int i = 0; i < card.length; i++) {
             card[i] = community.get(i);
         }
-        return combinations(card, 5, 0, new Card[5], new ArrayList<Hand>());
+        combinations(card, 5, 0, new Card[5], results);
     }
 
-    private static ArrayList<Hand> combinations(Card[] cards, int len, int start, Card[] result, ArrayList<Hand> results) {
+    private static void combinations(Card[] cards, int len, int start, Card[] result, ArrayList<Hand> results) {
         if (len == 0) {
             Card[] temp = {result[0], result[1], result[2], result[3], result[4]};
             results.add(new Hand(temp));
@@ -112,7 +118,7 @@ public class ServerSide {
                 combinations(cards, len - 1, i + 1, result, results);
             }
         }
-        return results;
+//        return results;
     }
 
     public static void round() {
