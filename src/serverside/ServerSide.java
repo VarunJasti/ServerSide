@@ -18,14 +18,10 @@ public class ServerSide {
     private static double bet = 0;
 
     public static void main(String[] args) {
-        ArrayList<Card> c = new ArrayList<>();
-        c.add(new Card(1,0));
-        c.add(new Card(11,0));
-        c.add(new Card(13,0));
-        c.add(new Card(12,0));
-        c.add(new Card(10,0));
-        Hand h = new Hand(c);
-        System.out.println(h.isRoyalFlush());
+        run();
+    }
+    
+    public static void run() {
         try {
             ServerSocket server = new ServerSocket(PORT);
             System.out.println("Server Running on " + PORT);
@@ -101,13 +97,19 @@ public class ServerSide {
             }
         }
         ArrayList<Hand> hands = new ArrayList<>();
+        ArrayList<Hand> bestHands = new ArrayList<>();
         for (User u : clients) {
+            hands.clear();
             combinations(community, u.getHand(), hands);
+            Collections.sort(hands);
+            hands.get(0).setUser(u);
+            bestHands.add(hands.get(0));
         }
-        for (int i = 0; i < hands.size(); i++) {
-            Collections.sort(hands.get(i).getCards());
-            System.out.println(hands.get(i).getCards());
+        Collections.sort(bestHands);
+        for (Hand hand : bestHands) {
+            System.out.println(hand.toString());
         }
+        System.out.println("Winner: " + bestHands.get(0).getUser().getUser() + " -> " + bestHands.get(0));
     }
 
     public static void combinations(ArrayList<Card> community, ArrayList<Card> hand, ArrayList<Hand> results) {
