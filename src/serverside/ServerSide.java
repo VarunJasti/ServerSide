@@ -67,7 +67,7 @@ public class ServerSide {
     }
 
     public static void playPoker() {
-        while (true) {
+        while (playing) {
             bet = 0;
             Deck d = new Deck();
             for (User u : clients) {
@@ -217,7 +217,7 @@ public class ServerSide {
     private static void disconnect(User u) {
         System.out.println(u.getUser() + " disconnected");
         for (int i = 0; i < clients.size(); i++) {
-            clients.get(i).getOut().println("endgame");
+            clients.get(i).getOut().println("endgame," + u.getUser());
         }
         playing = false;
         clients.clear();
