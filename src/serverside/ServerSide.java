@@ -125,9 +125,14 @@ public class ServerSide {
             }
             pot = pot / (winners.size() * 1.0);
             System.out.println(pot);
+            String s = "";
             for (Hand hand : winners) {
+                s += hand.getUser().getUser() + ", ";
                 hand.getUser().getOut().println("win," + pot);
                 System.out.println("Winner: " + hand.getUser().getUser() + " --> " + hand.getCards());
+            }
+            for (User u : clients) {
+                u.getOut().println("userwin|" + s);
             }
             if (playing) {
                 User temp = clients.get(0);
