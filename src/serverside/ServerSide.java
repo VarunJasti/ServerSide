@@ -20,7 +20,7 @@ public class ServerSide {
     public static void main(String[] args) {
         run();
     }
-    
+
     public static void run() {
         try {
             ServerSocket server = new ServerSocket(PORT);
@@ -106,10 +106,27 @@ public class ServerSide {
             bestHands.add(hands.get(0));
         }
         Collections.sort(bestHands);
-        for (Hand hand : bestHands) {
-            System.out.println(hand.toString());
+        ArrayList<Hand> winners = new ArrayList<>();
+        boolean check = true;
+        int i = 0;
+        while (check && i < bestHands.size()) {
+            winners.add(bestHands.get(i));
+            if (bestHands.get(i).compareTo(bestHands.get(i + 1)) == 0) {
+                i++;
+            } else {
+                check = false;
+            }
         }
-        System.out.println("Winner: " + bestHands.get(0).getUser().getUser() + " -> " + bestHands.get(0));
+        double pot = 0;
+        for (User u : clients) {
+            pot += u.getBet();
+        }
+        pot = pot / (winners.size() * 1.0);
+        System.out.println(pot);
+        for (Hand hand : winners) {
+            hand.getUser().getOut().println("win," + pot);
+            System.out.println("Winner: " + hand.getUser().getUser() + " --> " + hand.getCards());
+        }
     }
 
     public static void combinations(ArrayList<Card> community, ArrayList<Card> hand, ArrayList<Hand> results) {
